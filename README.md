@@ -16,3 +16,8 @@ Konvertieren:
 pyuic5 main_windows.ui -o main_window.py
 ```
 
+Run:
+
+```
+venv/bin/python RESTServer.py & venv/bin/python Client.py
+```
