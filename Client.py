@@ -5,9 +5,16 @@ from main_window import Ui_MainWindow
 import requests
 import json
 
+"""
+The ip of the rest server (must contain http / https)
+"""
 ip = "http://localhost:8080"
 
-
+"""
+This methode translates the given text and returns:
+- an error message, formatted as html
+- the language, probability and reliability formatted as html
+"""
 def translate(text):
     try:
         resp = requests.get(ip + "/?text=" + text)
@@ -26,14 +33,14 @@ def translate(text):
         string += "language: <b>" + lang + "</b><br>"
         string += "probability: <b>" + probability + "%</b>"
         return string
-    except Exception as e:
-        return "Wrong response from server - is your input correct?" + e
+    except:
+        return "Wrong response from server - is your input correct?"
 
 
+"""
+The controller, which starts the GUI and defines what happens when the "check" button is pressed
+"""
 class Controller(QMainWindow):
-    """
-    Ein controller welcher output.py und die Konvertierer implementiert
-    """
 
     def __init__(self):
         super().__init__()
@@ -44,8 +51,8 @@ class Controller(QMainWindow):
 
     def get_lang(self):
         """
-           wird ausgeführt sobald der Button 'check' gedrückt wird
-       """
+           sets the result field to the output of text and displays a status message in the statusbar
+        """
         self.ui.statusbar.showMessage("Guessing Lang...")
         message = "Languege guessed"
         try:
@@ -59,6 +66,9 @@ class Controller(QMainWindow):
         self.ui.statusbar.showMessage(message)
 
 
+"""
+Start the Controller and wait for it to exit
+"""
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     c = Controller()
