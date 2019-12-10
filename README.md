@@ -1,0 +1,1 @@
+# pyqt-language-detecter
